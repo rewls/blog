@@ -106,5 +106,17 @@
     "content": " ",
     "url": "http://localhost:4000/",
     "relUrl": "/"
+  },"18": {
+    "doc": "Test",
+    "title": "test",
+    "content": "test . ",
+    "url": "http://localhost:4000/docs/test#test",
+    "relUrl": "/docs/test#test"
+  },"19": {
+    "doc": "Test",
+    "title": "Test",
+    "content": " ",
+    "url": "http://localhost:4000/docs/test",
+    "relUrl": "/docs/test"
   }
 }
