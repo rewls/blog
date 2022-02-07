@@ -1,0 +1,608 @@
+I"�d<h1 class="no_toc" id="ch2-퍼셉트론">Ch2 퍼셉트론</h1>
+
+<h2 class="no_toc text-delta" id="table-of-contents">Table of contents</h2>
+
+<ol id="markdown-toc">
+  <li><a href="#21-퍼셉트론이란" id="markdown-toc-21-퍼셉트론이란">2.1 퍼셉트론이란</a></li>
+  <li><a href="#22-단순한-논리-회로" id="markdown-toc-22-단순한-논리-회로">2.2 단순한 논리 회로</a>    <ol>
+      <li><a href="#221-and-게이트" id="markdown-toc-221-and-게이트">2.2.1 AND 게이트</a></li>
+      <li><a href="#222-nand-게이트와-or-게이트" id="markdown-toc-222-nand-게이트와-or-게이트">2.2.2 NAND 게이트와 OR 게이트</a>        <ol>
+          <li><a href="#nand-게이트" id="markdown-toc-nand-게이트">NAND 게이트</a></li>
+          <li><a href="#or-게이트" id="markdown-toc-or-게이트">OR 게이트</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><a href="#23-퍼셉트론-구현하기" id="markdown-toc-23-퍼셉트론-구현하기">2.3 퍼셉트론 구현하기</a>    <ol>
+      <li><a href="#231-간단한-구현부터" id="markdown-toc-231-간단한-구현부터">2.3.1 간단한 구현부터</a>        <ol>
+          <li><a href="#and-게이트-구현" id="markdown-toc-and-게이트-구현">AND 게이트 구현</a></li>
+        </ol>
+      </li>
+      <li><a href="#232-가중치와-편향-도입" id="markdown-toc-232-가중치와-편향-도입">2.3.2 가중치와 편향 도입</a></li>
+      <li><a href="#233-가중치와-편향-구현하기" id="markdown-toc-233-가중치와-편향-구현하기">2.3.3 가중치와 편향 구현하기</a>        <ol>
+          <li><a href="#가중치와-편향을-도입한-and-게이트" id="markdown-toc-가중치와-편향을-도입한-and-게이트">가중치와 편향을 도입한 AND 게이트</a></li>
+          <li><a href="#nand-게이트와-or-게이트-구현" id="markdown-toc-nand-게이트와-or-게이트-구현">NAND 게이트와 OR 게이트 구현</a></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li><a href="#24-퍼셉트론의-한계" id="markdown-toc-24-퍼셉트론의-한계">2.4 퍼셉트론의 한계</a>    <ol>
+      <li><a href="#241-xor-게이트" id="markdown-toc-241-xor-게이트">2.4.1 XOR 게이트</a></li>
+      <li><a href="#242-선형과-비선형" id="markdown-toc-242-선형과-비선형">2.4.2 선형과 비선형</a></li>
+    </ol>
+  </li>
+  <li><a href="#25-다층-퍼셉트론이-출동한다면" id="markdown-toc-25-다층-퍼셉트론이-출동한다면">2.5 다층 퍼셉트론이 출동한다면</a>    <ol>
+      <li><a href="#251-기존-게이트-조합하기" id="markdown-toc-251-기존-게이트-조합하기">2.5.1 기존 게이트 조합하기</a></li>
+      <li><a href="#252-xor-게이트-구현하기" id="markdown-toc-252-xor-게이트-구현하기">2.5.2 XOR 게이트 구현하기</a></li>
+    </ol>
+  </li>
+  <li><a href="#26-nand에서-컴퓨터까지" id="markdown-toc-26-nand에서-컴퓨터까지">2.6 NAND에서 컴퓨터까지</a></li>
+  <li><a href="#27-정리" id="markdown-toc-27-정리">2.7 정리</a>    <ol>
+      <li><a href="#이번-장에서-배운-내용" id="markdown-toc-이번-장에서-배운-내용">이번 장에서 배운 내용</a></li>
+    </ol>
+  </li>
+</ol>
+
+<hr />
+
+<ul>
+  <li>
+    <p>프랑크 로젠블라트가 1957년에 고안한 알고리즘</p>
+  </li>
+  <li>
+    <p>신경망(딥러닝)의 기원이 되는 알고리즘</p>
+  </li>
+</ul>
+
+<h2 id="21-퍼셉트론이란">2.1 퍼셉트론이란</h2>
+
+<ul>
+  <li>
+    <p>다수의 신호를 입력으로 받아 하나의 신호를 출력</p>
+  </li>
+  <li>
+    <p>0과 1 두 가지 값을 가짐</p>
+  </li>
+</ul>
+
+<pre><code class="language-mermaid">flowchart LR
+	x1((x1)); x2((x2)); y((y))
+	x1 --w1--&gt;y
+	x2 --w2--&gt;y
+</code></pre>
+
+<ul>
+  <li>
+    <p>$x_1$, $x_2$는 입력 신호, $y$는 출력 신호, $w_1$, $w_2$는 가중치</p>
+  </li>
+  <li>
+    <p>위의 원을 <strong>뉴런</strong> 혹은 <strong>노드</strong>라고 부름</p>
+  </li>
+  <li>
+    <p>입력 신호가 뉴런에 보내질 때는 각각 고유한 <strong>가중치(weight)</strong>가 곱해짐($w_1x_1, w_2x_2$)</p>
+  </li>
+  <li>
+    <p>뉴런에서 보내온 신호의 총합이 정해진 한계를 넘어설 때만 1 출력</p>
+
+    <ul>
+      <li>
+        <p>뉴런이 활성화한다고 표현하기도 함</p>
+      </li>
+      <li>
+        <p>한계를 <strong>임계값</strong>이라고 하며 $\theta$로 나타냄</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div>
+$$
+y = \begin{cases}
+	0~(w_1x_1 + w_2x_2 \le \theta)\\
+	1~(w_1x_1 + w_2x_2 &gt; \theta)
+	\end{cases}
+$$
+</div>
+
+<h2 id="22-단순한-논리-회로">2.2 단순한 논리 회로</h2>
+
+<ul>
+  <li>퍼셉트론을 표현하기 위해서는 퍼셉트론의 매개변수인 가중치와 임계값을 결정해야 한다.</li>
+</ul>
+
+<h3 id="221-and-게이트">2.2.1 AND 게이트</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>x1</th>
+      <th>x2</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>$(w_1, w_2, \theta) = (0.5, 0.5, 0.7), (1.0, 1.0, 2.0), …$ 무수히 많음</li>
+</ul>
+
+<h3 id="222-nand-게이트와-or-게이트">2.2.2 NAND 게이트와 OR 게이트</h3>
+
+<h5 id="nand-게이트">NAND 게이트</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>x1</th>
+      <th>x2</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>
+    <p>$(w_1, w_2, \theta) = (-0.5, -0.5, -0.7), …$ 무수히 많음</p>
+  </li>
+  <li>
+    <p>AND 게이트를 구현하는 매개변수의 부호를 반전하면 NAND 게이트가 된다.</p>
+  </li>
+</ul>
+
+<h5 id="or-게이트">OR 게이트</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>x1</th>
+      <th>x2</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>$(w_1, w_2, \theta) = (1.0, 1.0, 1.0), …$ 무수히 많음</li>
+</ul>
+
+<blockquote>
+  <p><strong>학습</strong>이란 적절한 매개변수 값을 정하는 작업이다. 여기서는 인간이 진리표라는 학습데이터를 보면서 매개변수의 값을 결정했지만 기계학습에서는 컴퓨터가 학습데이터를 보고 자동으로 학습한다. 사람은 퍼셉트론의 구조(모델)을 고민하고 컴퓨터에 학습할 데이터를 주는 일을 한다.</p>
+</blockquote>
+
+<ul>
+  <li>
+    <p>퍼셉트론의 구조는 AND, NAND, OR 게이트에서 모두 똑같다.</p>
+  </li>
+  <li>
+    <p>같은 구조의 퍼셉트론에서 매개변수의 값만 적절히 조정하면 AND, NAND, OR이 된다.</p>
+  </li>
+</ul>
+
+<h2 id="23-퍼셉트론-구현하기">2.3 퍼셉트론 구현하기</h2>
+
+<h3 id="231-간단한-구현부터">2.3.1 간단한 구현부터</h3>
+
+<h5 id="and-게이트-구현">AND 게이트 구현</h5>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">AND</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+	<span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span>
+	<span class="n">tmp</span> <span class="o">=</span> <span class="n">x1</span><span class="o">*</span><span class="n">w1</span> <span class="o">+</span> <span class="n">x2</span><span class="o">*</span><span class="n">w2</span>
+	<span class="k">if</span> <span class="n">tmp</span> <span class="o">&lt;=</span> <span class="n">theta</span><span class="p">:</span>
+		<span class="k">return</span> <span class="mi">0</span>
+	<span class="k">if</span> <span class="n">tmp</span> <span class="o">&gt;=</span> <span class="n">theta</span><span class="p">:</span>
+		<span class="k">return</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># interpreter
+</span><span class="n">AND</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">AND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">AND</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">AND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="232-가중치와-편향-도입">2.3.2 가중치와 편향 도입</h3>
+
+<div>
+$$
+y = \begin{cases}
+	0~(w_1x_1 + w_2x_2 \le \theta)\\
+	1~(w_1x_1 + w_2x_2 &gt; \theta)\\
+	\end{cases}
+$$
+</div>
+
+<p>$\theta = -b$ 치환</p>
+
+<div>
+$$
+y = \begin{cases}
+	0~(b + w_1x_1 + w_2x_2 \le 0)\\
+	1~(b + w_1x_1 + w_2x_2 &gt; 0)\\
+	\end{cases}
+$$
+</div>
+
+<ul>
+  <li>$b$를 <strong>편향(bias)</strong>이라고 한다.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># interpreter
+</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>		<span class="c1"># 입력
+</span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>	<span class="c1"># 가중치
+</span><span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.7</span>					<span class="c1"># 편향
+</span><span class="n">w</span><span class="o">*</span><span class="n">x</span>
+<span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>넘파이 배열끼리의 곱셈은 원소 수가 같다면 각 원소끼리 곱한다.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">np.sum()</code> : 입력한 배열에 담긴 모든 원소의 총합 계산</p>
+  </li>
+</ul>
+
+<h3 id="233-가중치와-편향-구현하기">2.3.3 가중치와 편향 구현하기</h3>
+
+<h5 id="가중치와-편향을-도입한-and-게이트">가중치와 편향을 도입한 AND 게이트</h5>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="k">def</span> <span class="nf">AND</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+	<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">])</span>
+	<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+	<span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.7</span>
+	<span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
+	<span class="k">if</span> <span class="n">tmp</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="k">return</span> <span class="mi">0</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">return</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># interpreter
+</span><span class="n">AND</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">AND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">AND</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">AND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>가중치와 편향은 기능이 다르다는 사실에 주의!</p>
+
+    <ul>
+      <li>
+        <p>가중치는 각 입력 신호가 결과에 주는 영향력(중요도)을 조절하는 매개변수</p>
+      </li>
+      <li>
+        <p>편향은 뉴런이 얼마나 쉽게 활성화(결과로 1을 출력)하느냐를 조정하는 매개변수</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>$w_1$과 $w_2$는 가중치로, $b$는 편향으로 서로 구별하기도 하지만 문맥에 따라 셋 모두를 가중치라고 할 때도 있다.</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>편향이라는 용어는 ‘한쪽으로 치우쳐 균형을 깬다’라는 의미를 담고 있다.
+실제로 두 입력이 모두 0이어도 결과로 편향 값을 출력한다.</p>
+</blockquote>
+
+<h5 id="nand-게이트와-or-게이트-구현">NAND 게이트와 OR 게이트 구현</h5>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="k">def</span> <span class="nf">NAND</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+	<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">])</span>
+	<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">])</span>
+	<span class="n">b</span> <span class="o">=</span> <span class="mf">0.7</span>
+	<span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
+	<span class="k">if</span> <span class="n">tmp</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="k">return</span> <span class="mi">0</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">return</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">OR</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+	<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">])</span>
+	<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+	<span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span>
+	<span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
+	<span class="k">if</span> <span class="n">tmp</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="k">return</span> <span class="mi">0</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">return</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># interpreter
+</span><span class="n">NAND</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">NAND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">NAND</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">NAND</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">OR</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">OR</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">OR</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">OR</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="24-퍼셉트론의-한계">2.4 퍼셉트론의 한계</h2>
+
+<ul>
+  <li>
+    <p>단층 퍼셉트론으로는 XOR 게이트를 표현할 수 없음</p>
+  </li>
+  <li>
+    <p>단층 퍼셉트론으로는 비선형 영역을 분리할 수 없음</p>
+  </li>
+</ul>
+
+<h3 id="241-xor-게이트">2.4.1 XOR 게이트</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>x1</th>
+      <th>x2</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="img/2_1_xor-graph.png" alt="2_1 xor 그래프" /></p>
+
+<ul>
+  <li>직선 하나로 $\bigcirc$와 $\triangle$을 나눌 수 없다.</li>
+</ul>
+
+<h3 id="242-선형과-비선형">2.4.2 선형과 비선형</h3>
+
+<ul>
+  <li>
+    <p>곡선이라면 $\bigcirc$와 $\triangle$을 나눌 수 있다.</p>
+  </li>
+  <li>
+    <p>곡선의 영역을 <strong>비선형</strong> 영역, 직선의 영역을 <strong>선형</strong> 영역이라고 함</p>
+  </li>
+  <li>
+    <p>퍼셉트론은 직선 하나로 나눈 영역만 표현할 수 있다는 한계가 있음</p>
+  </li>
+</ul>
+
+<h2 id="25-다층-퍼셉트론이-출동한다면">2.5 다층 퍼셉트론이 출동한다면</h2>
+
+<ul>
+  <li>다층 퍼셉트론을 이용해서 XOR 표현</li>
+</ul>
+
+<h3 id="251-기존-게이트-조합하기">2.5.1 기존 게이트 조합하기</h3>
+
+<ul>
+  <li>AND, NAND, OR 게이트를 조합</li>
+</ul>
+
+<p><img src="img/2_2_and-nand-or-gate-sign.png" alt="2_2 AND, NAND, OR 게이트 기호" /></p>
+
+<p><img src="img/2_3_xor-gate.png" alt="2_3 XOR 게이트" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>x1</th>
+      <th>x2</th>
+      <th>s1</th>
+      <th>s2</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="252-xor-게이트-구현하기">2.5.2 XOR 게이트 구현하기</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">XOR</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+	<span class="n">s1</span> <span class="o">=</span> <span class="n">NAND</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+	<span class="n">s2</span> <span class="o">=</span> <span class="n">OR</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+	<span class="n">y</span> <span class="o">=</span> <span class="n">AND</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">y</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># interpreter
+</span><span class="n">XOR</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">XOR</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">XOR</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">XOR</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>뉴런을 이용한 퍼셉트론으로 표현</li>
+</ul>
+
+<pre><code class="language-mermaid">flowchart LR
+	x1((x1)); x2((x2)); s1((s1)); s2((s2)); y((y))
+	x1 --&gt; s1; x1 --&gt; s2
+	x2 --&gt; s1; x2 --&gt; s2
+	s1 --&gt; y
+	s2 --&gt; y
+
+	subgraph f0[0층]
+		x1; x2
+		end
+	subgraph f1[1층]
+		s1; s2
+		end
+	subgraph f2[2층]
+		y
+		end
+</code></pre>
+
+<ul>
+  <li>
+    <p>이처럼 층이 여러 개인 퍼셉트론을 다층 퍼셉트론이라고 한다.</p>
+  </li>
+  <li>
+    <p>층을 쌓아 퍼셉트론으로 다양한 것을 표현할 수 있음</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>위의 퍼셉트론은 총 3층으로 구성되지만 가중치를 갖는 층은 2개 뿐이므로 2층 퍼셉트론이라 부르기로 하자. 3층 퍼셉트론이라 하는 경우도 있다.</p>
+</blockquote>
+
+<h2 id="26-nand에서-컴퓨터까지">2.6 NAND에서 컴퓨터까지</h2>
+
+<ul>
+  <li>
+    <p>NAND 게이트만으로 컴퓨터 제작 가능 $\rightarrow$ 퍼셉트론으로 컴퓨터 제작 가능</p>
+  </li>
+  <li>
+    <p>퍼셉트론은 층을 거듭 쌓으면 비선형적인 표현도 가능하고 이론상 컴퓨터가 수행하는 처리도 표현 가능</p>
+  </li>
+</ul>
+
+<h2 id="27-정리">2.7 정리</h2>
+
+<h3 id="이번-장에서-배운-내용">이번 장에서 배운 내용</h3>
+
+<ul>
+  <li>
+    <p>퍼셉트론은 입출력을 갖춘 알고리즘이다. 입력을 주면 정해진 규칙에 따른 값을 출력한다.</p>
+  </li>
+  <li>
+    <p>퍼셉트론에서는 가중치와 편향을 매개변수로 설정한다.</p>
+  </li>
+  <li>
+    <p>퍼셉트론으로 AND, OR 게이트 등의 논리 회로를 표현할 수 있다.</p>
+  </li>
+  <li>
+    <p>XOR 게이트는 단층 퍼셉트론으로는 표현할 수 없다.</p>
+  </li>
+  <li>
+    <p>2층 퍼셉트론을 이용하면 XOR 게이트를 표현할 수 있다.</p>
+  </li>
+  <li>
+    <p>단층 퍼셉트론은 직선형 영역만 표현할 수 있고, 다층 퍼셉트론으 ㄴ비선형 영영역도 표현할 수 있다.</p>
+  </li>
+  <li>
+    <p>다층 퍼셉트론은 (이론상) 컴퓨터를 표현할 수 있다.</p>
+  </li>
+</ul>
+:ET
