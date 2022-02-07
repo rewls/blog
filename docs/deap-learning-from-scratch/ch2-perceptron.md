@@ -162,7 +162,7 @@ $$
 import numpy as np
 x = np.array([0, 1])		# 입력
 w = np.array([0.5, 0.5])	# 가중치
-b = -0.7					# 편향
+b = -0.7			# 편향
 w*x
 np.sum(w*x) + b
 ```
@@ -283,7 +283,7 @@ OR(1, 1)
 
 ### 2.5.1 기존 게이트 조합하기
 
-- AND, NAND, OR 게이트를 조합
+- AND, NAND, OR 게이트를 조합하여 XOR 구현
 
 ![2_2 AND, NAND, OR 게이트 기호](img/2_2_and-nand-or-gate-sign.png)
 
