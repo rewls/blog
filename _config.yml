@@ -130,3 +130,5 @@ compress_html:
   excerpt_seperator: \n\n
   incremental: false
 
+remote_theme: pmarsceil/just-the-docs
+theme: "just-the-docs"
