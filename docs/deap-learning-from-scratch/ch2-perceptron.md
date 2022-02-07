@@ -15,8 +15,13 @@ use_math: true
 ## Table of contents
 {: .no_toc .text-delta }
 
-1. TOC
+<details open markdown="block">
+  <summary>
+    Toggle
+  </summary>
+- TOC
 {:toc}
+</details>
 
 ---
 
@@ -78,6 +83,7 @@ $$
 ### 2.2.2 NAND 게이트와 OR 게이트
 
 ##### NAND 게이트
+{: .no_toc }
 
 |x1|x2|y|
 |-|-|-|
@@ -91,6 +97,7 @@ $$
 - AND 게이트를 구현하는 매개변수의 부호를 반전하면 NAND 게이트가 된다.
 
 ##### OR 게이트
+{: .no_toc }
 
 |x1|x2|y|
 |-|-|-|
@@ -114,6 +121,7 @@ $$
 ### 2.3.1 간단한 구현부터
 
 ##### AND 게이트 구현
+{: .no_toc }
 
 ```python
 def AND(x1, x2):
@@ -174,6 +182,7 @@ np.sum(w*x) + b
 ### 2.3.3 가중치와 편향 구현하기
 
 ##### 가중치와 편향을 도입한 AND 게이트
+{: .no_toc }
 
 ```python
 import numpy as np
@@ -209,6 +218,7 @@ AND(1, 1)
 > 실제로 두 입력이 모두 0이어도 결과로 편향 값을 출력한다.
 
 ##### NAND 게이트와 OR 게이트 구현
+{: .no_toc }
 
 ```python
 import numpy as np
