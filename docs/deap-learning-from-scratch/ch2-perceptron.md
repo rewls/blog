@@ -6,6 +6,9 @@ nav_order: 2
 use_math: true
 ---
 
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
 # Ch2 퍼셉트론
 {: .no_toc }
 
@@ -27,12 +30,12 @@ use_math: true
 
 - 0과 1 두 가지 값을 가짐
 
-```mermaid
-flowchart LR
-	x1((x1)); x2((x2)); y((y))
-	x1 --w1-->y
-	x2 --w2-->y
-```
+<div class="mermaid">
+graph LR;
+	x1((x1)); x2((x2)); y((y));
+	x1 --w1-->y;
+	x2 --w2-->y;
+</div>
 
 - $x_1$, $x_2$는 입력 신호, $y$는 출력 신호, $w_1$, $w_2$는 가중치
 
@@ -310,24 +313,24 @@ XOR(1, 1)
 
 - 뉴런을 이용한 퍼셉트론으로 표현
 
-```mermaid
-flowchart LR
-	x1((x1)); x2((x2)); s1((s1)); s2((s2)); y((y))
-	x1 --> s1; x1 --> s2
-	x2 --> s1; x2 --> s2
-	s1 --> y
-	s2 --> y
+<div class="mermaid">
+flowchart LR;
+	x1((x1)); x2((x2)); s1((s1)); s2((s2)); y((y));
+	x1 --> s1; x1 --> s2;
+	x2 --> s1; x2 --> s2;
+	s1 --> y;
+	s2 --> y;
 
-	subgraph f0[0층]
-		x1; x2
-		end
-	subgraph f1[1층]
-		s1; s2
-		end
-	subgraph f2[2층]
-		y
-		end
-```
+	subgraph f0[0층];
+		x1; x2;
+		end;
+	subgraph f1[1층];
+		s1; s2;
+		end;
+	subgraph f2[2층];
+		y;
+		end;
+</div>
 
 - 이처럼 층이 여러 개인 퍼셉트론을 다층 퍼셉트론이라고 한다.
 
