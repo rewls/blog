@@ -263,6 +263,7 @@ OR(1, 1)
 |0|1|1|
 |1|1|0|
 
+![2_1 xor 그래프](img/2_1_xor-graph.png)
 
 - 직선 하나로 $\bigcirc$와 $\triangle$을 나눌 수 없다.
 
@@ -284,7 +285,9 @@ OR(1, 1)
 
 - AND, NAND, OR 게이트를 조합
 
+![2_2 AND, NAND, OR 게이트 기호](img/2_2_and-nand-or-gate-sign.png)
 
+![2_3 XOR 게이트](img/2_3_xor-gate.png)
 
 |x1|x2|s1|s2|y|
 |-|-|-|-|-|
