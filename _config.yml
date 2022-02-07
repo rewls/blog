@@ -131,4 +131,4 @@ compress_html:
   incremental: false
 
 remote_theme: pmarsceill/just-the-docs
-theme: "just-the-docs"
+#theme: "just-the-docs"
