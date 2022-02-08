@@ -8,5 +8,5 @@ permalink: /docs/deap-learning-from-scratch
 
 # Deap Learning from Scratch
 
-deap learning from scratch
+사이토 고키, 한빛미디어
 {: .fs-6 .fw-300 }
