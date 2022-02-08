@@ -3,11 +3,9 @@ layout: default
 title: Ch2 퍼셉트론
 parent: Deap Learning from Scratch
 nav_order: 2
-use_math: true
+mathjax: true
+mermaid: true
 ---
-
-<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({startOnLoad:true});</script>
 
 # Ch2 퍼셉트론
 {: .no_toc }
