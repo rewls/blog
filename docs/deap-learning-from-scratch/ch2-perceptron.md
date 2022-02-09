@@ -3,9 +3,11 @@ layout: default
 title: Ch2 퍼셉트론
 parent: Deap Learning from Scratch
 nav_order: 2
-mathjax: true
-mermaid: true
+use_math: true
 ---
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
 
 # Ch2 퍼셉트론
 {: .no_toc }
@@ -44,7 +46,7 @@ graph LR;
 
 - 위의 원을 **뉴런** 혹은 **노드**라고 부름
 
-- 입력 신호가 뉴런에 보내질 때는 각각 고유한 **가중치(weight)**가 곱해짐($w_1x_1, w_2x_2$)
+- 입력 신호가 뉴런에 보내질 때는 각각 고유한 **가중치**$^{\text{weight}}$가 곱해짐($w_1x_1, w_2x_2$)
 
 - 뉴런에서 보내온 신호의 총합이 정해진 한계를 넘어설 때만 1 출력
 
@@ -161,7 +163,7 @@ y = \begin{cases}
 $$
 </div>
 
-- $b$를 **편향(bias)**이라고 한다.
+- $b$를 **편향**$^{\text{bias}}$이라고 한다.
 
 ```python
 # interpreter
