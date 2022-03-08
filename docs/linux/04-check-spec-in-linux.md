@@ -2,7 +2,7 @@
 layout: default
 title: Check Specifications in Linux
 parent: Linux
-nav_order: 3
+nav_order: 4
 ---
 
 # Check Specifications in Linux
