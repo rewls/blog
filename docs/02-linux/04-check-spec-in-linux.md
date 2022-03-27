@@ -8,11 +8,16 @@ nav_order: 4
 # Check Specifications in Linux
 {: .no_toc }
 
+<details open markdown="block">
+  <summary>
+    Toggle
+  </summary>
 ## Table of contents
 {: .no_toc .text-delta }
 
 1. TOC
 {:toc}
+</details>
 
 ---
 

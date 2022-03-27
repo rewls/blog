@@ -8,11 +8,16 @@ nav_order: 1
 # Ch1 헬로 파이썬
 {: .no_toc }
 
+<details open markdown="block">
+  <summary>
+    Toggle
+  </summary>
 ## Table of contents
 {: .no_toc .text-delta }
 
 1. TOC
 {:toc}
+</details>
 
 ---
 

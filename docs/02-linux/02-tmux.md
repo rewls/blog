@@ -10,11 +10,16 @@ nav_order: 2
 
 > [참고](https://tmuxguide.readthedocs.io/en/latest/tmux/tmux.html)
 
+<details open markdown="block">
+  <summary>
+    Toggle
+  </summary>
 ## Table of contents
 {: .no_toc .text-delta }
 
 1. TOC
 {:toc}
+</details>
 
 ---
 

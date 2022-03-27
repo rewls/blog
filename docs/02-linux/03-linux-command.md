@@ -10,11 +10,16 @@ nav_order: 3
 
 > [참고](https://recipes4dev.tistory.com/157)
 
+<details open markdown="block">
+  <summary>
+    Toggle
+  </summary>
 ## Table of contents
 {: .no_toc .text-delta }
 
 1. TOC
 {:toc}
+</details>
 
 ---
 

@@ -12,13 +12,13 @@ use_math: true
 # Ch2 퍼셉트론
 {: .no_toc }
 
-## Table of contents
-{: .no_toc .text-delta }
-
 <details open markdown="block">
   <summary>
     Toggle
   </summary>
+## Table of contents
+{: .no_toc .text-delta }
+
 - TOC
 {:toc}
 </details>

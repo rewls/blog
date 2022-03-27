@@ -10,11 +10,16 @@ nav_order: 1
 
 > [강의](https://opentutorials.org/module/3747)
 
+<details open markdown="block">
+  <summary>
+    Toggle
+  </summary>
 ## Table of contents
 {: .no_toc .text-delta }
 
 1. TOC
 {:toc}
+</details>
 
 ---
 

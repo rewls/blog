@@ -10,13 +10,14 @@ mermaid: true
 # Ch3 신경망
 {: .no_toc }
 
-## Table of contents
-{: .no_toc .text-delta }
-
 <details open markdown="block">
   <summary>
     Toggle
   </summary>
+
+## Table of contents
+{: .no_toc .text-delta }
+
 - TOC
 {:toc}
 </details>
