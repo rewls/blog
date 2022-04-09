@@ -2,7 +2,7 @@
 layout: default
 title: Ch1 Getting Started
 parent: Git
-nav_order: 3
+nav_order: 1
 mermaid: true
 permalink: /docs/git/ch1-getting-start
 ---
@@ -74,9 +74,9 @@ permalink: /docs/git/ch1-getting-start
 
 ### Git의 무결성
 
-- Git은 데이터를 저장하기 전에 항상 체크섬을 구하고 그 체크섬으로 데이터를 관리한다.
+- Git은 데이터를 저장하기 전에 항상 checksum 구하고 그 checksum으로 데이터를 관리한다.
 
-- Git은 SHA-1 해시를 사용하여 체크섬을 만든다. 만든 체크섬은 40자의 16진수 문자열이다.
+- Git은 SHA-1 해시를 사용하여 checksum을 만든다. 만든 checksum은 40자의 16진수 문자열이다.
 
 ### Git은 데이터를 추가할 뿐
 
