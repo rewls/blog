@@ -35,6 +35,7 @@ sudo apt-get install tmux
 
 ```
 # ~/.tmux.conf
+
 # unbind default prefix and set it to ctrl-a
 unbind C-b
 set -g prefix C-a
@@ -42,7 +43,6 @@ bind C-a send-prefix
 
 # make delay shorter
 set -sg escape-time 0
-
 
 #### key bindings ####
 
@@ -53,7 +53,7 @@ bind r source-file ~/.tmux.conf \; display ".tmux.conf reloaded!"
 bind N new-window
 
 # synchronize all panes in a window
-bind y setw wynchronize-panes
+bind y setw synchronize-panes
 
 # pane movement shortcuts (same as vim)
 bind h select-pane -L
@@ -62,16 +62,20 @@ bind k select-pane -U
 bind l select-pane -R
 
 # enable mouse support for switching panes/windows
-set -g mouse-utf8 on
 set -g mouse on
 
+#### copy mode: vim ####
 
-#### copy mode using 'Esc'
+# set vi mode for copy mode
+setw -g mode-keys vi
+
+# copy mode using 'ESC'
 unbind [
 bind Escape copy-mode
 
 # start selection with 'space' and copy using 'y'
-bind -t vi-copy 'y' copy-selection
+bind-key -Tcopy-mode-vi 'v' send -X begin-selection
+bind-key -Tcopy-mode-vi 'y' send -X copy-pipe-and-canfel "xclip -i -sel c"
 
 # paste using 'p'
 unbind p
