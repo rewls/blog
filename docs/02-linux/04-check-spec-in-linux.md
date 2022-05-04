@@ -119,6 +119,6 @@ nav_order: 4
 
 - linux 배포판 정보
 
-```shell
-cat /etc/*release
-```
+	```shell
+	cat /etc/*release
+	```
