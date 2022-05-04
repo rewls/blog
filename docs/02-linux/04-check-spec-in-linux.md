@@ -21,102 +21,104 @@ nav_order: 4
 
 ---
 
-## IP 확인
+## IP 주소
 
-```
-curl ifconfig.me
-```
+- IP 주소
+
+	```shell
+	curl ifconfig.me
+	```
 
 ## CPU
 
-```
-cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc -l
-```
+- CPU 정보
+
+	```shell
+	cat /proc/cpuinfo
+	```
+
+	```shell
+	lscpu
+	```
 
 - 장착된 CPU 개수
 
-```
-cat /proc/cpuinfo
-```
+	```shell
+	cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc -l
+	```
 
-```
-lscpu
-```
+- CPU 모델
 
-### CPU model
+	```shell
+	cat /proc/cpuinfo | grep "model name" | uniq
+	```
 
-```
-cat /proc/cpuinfo | grep "model name" | uniq
-```
+- CPU Architecture
 
-- model name 출력
+	```shell
+	arch
+	```
 
-### Architecture
+	```shell
+	lscpu | grep "Arch"
+	```
 
-```
-arch
-```
+- CPU Core 개수
 
-```
-lscpu | grep "Arch"
-```
+	```shell
+	cat /proc/cpuinfo | grep "cpu cores" | sort | uniq | cut -c 13-
+	```
 
-### Core
+- CPU Thread 개수
 
-```
-cat /proc/cpuinfo | grep "cpu cores" | sort | uniq
-```
-
-- 각 CPU에 할당된 코어 개수 목록
-
-### Thread
-
-```
-cat /proc/cpuinfo | grep "siblings" | sort | uniq
-```
-
-- 각 CPU에 할당된 쓰레드 수
+	```shell
+	cat /proc/cpuinfo | grep "siblings" | sort | uniq | cut -c 12-
+	```
 
 ## Memory
 
-```
-cat /proc/meminfo
-```
+- Memory 정보
 
-- 메모리 전체 정보 출력
+	```shell
+	cat /proc/meminfo
+	```
 
-```
-free -h
-```
-
-- 메모리 정보 일부
-
-- `h` : human readable output
+	```shell
+	free -h
+	```
 
 ## Disk
 
-```
-lsblk
-```
+- block device 용량
 
-- 리눅스 디바이스 정보 출력
+	```shell
+	lsblk
+	```
 
-```
-df . -h
-```
+	- lsblk(list block)
 
-- 논리 디스크 현재 위치한 파티션 정보 일부
+- file system에 마운트된 용량
 
-- `h` : human readable output
+	```shell
+	df . -h
+	```
+
+	- df(disk free)
+
+	- `h` : human readable output
 
 ## Graphic card
 
-```
-lspci | grep -i VGA
-```
+- Graphic card 모델명
 
-## Linux distribution
+	```shell
+	lspci | grep -i VGA | cut -c 36-
+	```
 
-```
+## Linux 배포판
+
+- linux 배포판 정보
+
+```shell
 cat /etc/*release
 ```
