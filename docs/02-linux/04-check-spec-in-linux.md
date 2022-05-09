@@ -50,10 +50,9 @@ nav_order: 4
 - CPU 모델
 
 	```shell
-	cat /proc/cpuinfo | grep "model name" | uniq
+	cat /proc/cpuinfo | grep "model name" | uniq | cut -c 14-
 	```
-
-- CPU Architecture
+- CPU architecture
 
 	```shell
 	arch
@@ -63,13 +62,13 @@ nav_order: 4
 	lscpu | grep "Arch"
 	```
 
-- CPU Core 개수
+- CPU core 개수
 
 	```shell
 	cat /proc/cpuinfo | grep "cpu cores" | sort | uniq | cut -c 13-
 	```
 
-- CPU Thread 개수
+- CPU thread 개수
 
 	```shell
 	cat /proc/cpuinfo | grep "siblings" | sort | uniq | cut -c 12-
@@ -77,7 +76,7 @@ nav_order: 4
 
 ## Memory
 
-- Memory 정보
+- memory 정보
 
 	```shell
 	cat /proc/meminfo
@@ -109,7 +108,7 @@ nav_order: 4
 
 ## Graphic card
 
-- Graphic card 모델명
+- graphic card 모델명
 
 	```shell
 	lspci | grep -i VGA | cut -c 36-
